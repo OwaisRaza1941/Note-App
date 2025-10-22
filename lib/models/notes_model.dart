@@ -27,6 +27,4 @@ class NotesModel {
 
     return data;
   }
-
-  
 }

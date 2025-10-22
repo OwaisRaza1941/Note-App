@@ -35,8 +35,13 @@ class NoteScreen extends StatelessWidget {
                           return Padding(
                             padding: EdgeInsets.only(bottom: 15),
                             child: Container(
+                              padding: EdgeInsets.only(
+                                left: 5,
+                                right: 5,
+                                top: 10,
+                              ),
                               width: double.infinity,
-                              height: 150,
+                              height: 120,
                               decoration: BoxDecoration(
                                 color: AppColors.darkGreyColor,
                                 borderRadius: BorderRadius.circular(15),
