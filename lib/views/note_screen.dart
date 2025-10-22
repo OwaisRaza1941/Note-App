@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:notepad/constants/colors.dart';
+import 'package:notepad/views/note_add_screen.dart';
 import 'package:notepad/views/widgets/dropdown_button.dart';
 import 'package:notepad/views/widgets/text_fields.dart';
 
@@ -24,9 +26,11 @@ class NoteScreen extends StatelessWidget {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: ColorClass.darkGreyColor,
+        backgroundColor: AppColors.darkGreyColor,
         shape: CircleBorder(),
-        onPressed: () {},
+        onPressed: () {
+          Get.to(NoteAddScreen(dateTime: DateTime.now()));
+        },
         child: Icon(Icons.add, color: Colors.blue),
       ),
     );

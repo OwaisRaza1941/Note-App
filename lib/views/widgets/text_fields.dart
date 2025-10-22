@@ -9,7 +9,7 @@ class TextFields extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 12),
       decoration: BoxDecoration(
-        color: ColorClass.darkGreyColor,
+        color: AppColors.darkGreyColor,
         borderRadius: BorderRadius.circular(12),
       ),
       child: TextField(

@@ -21,7 +21,7 @@ class DropdownButtonClass extends StatelessWidget {
                 child: Text(
                   item,
                   style: TextStyle(
-                    fontSize: 22,
+                    fontSize: 28,
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
                   ),
