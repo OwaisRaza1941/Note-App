@@ -5,16 +5,16 @@ TextField noteScreenFields({
   required String hintText,
   required double hintTextSize,
   required double textSize,
+  required TextEditingController controller,
   int? maxLines,
-  bool isTitle = false, // ✅ NEW
+  bool isTitle = false,
 }) {
   return TextField(
+    controller: controller,
     style: TextStyle(fontSize: textSize, color: Colors.white),
     cursorColor: Colors.white,
-    maxLines: isTitle ? 1 : maxLines, // ✅ Title force single line
-    textInputAction: isTitle
-        ? TextInputAction.done
-        : TextInputAction.newline, // ✅ Stop Enter on Title
+    maxLines: isTitle ? 1 : maxLines,
+    textInputAction: isTitle ? TextInputAction.done : TextInputAction.newline,
     keyboardType: isTitle ? TextInputType.text : TextInputType.multiline,
     decoration: InputDecoration(
       hintText: hintText,

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:notepad/views/note_screen.dart';
-import 'package:notepad/views/todo_screen.dart';
+import 'package:notepad/views/screens/note_screen.dart';
+import 'package:notepad/views/screens/todo_screen.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
