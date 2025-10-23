@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:notepad/constants/colors.dart';
 import 'package:notepad/controller/note_add_controller.dart';
 import 'package:notepad/views/screens/note_add_screen.dart';
@@ -27,40 +28,65 @@ class NoteScreen extends StatelessWidget {
 
               Obx(() {
                 return noteCtrl.allnotes.isNotEmpty
-                    ? ListView.builder(
-                        shrinkWrap: true,
-                        physics: NeverScrollableScrollPhysics(),
-                        itemCount: noteCtrl.allnotes.length,
-                        itemBuilder: (context, index) {
-                          return Padding(
-                            padding: EdgeInsets.only(bottom: 15),
-                            child: Container(
-                              padding: EdgeInsets.only(
-                                left: 5,
-                                right: 5,
-                                top: 10,
-                              ),
-                              width: double.infinity,
-                              height: 120,
-                              decoration: BoxDecoration(
-                                color: AppColors.darkGreyColor,
-                                borderRadius: BorderRadius.circular(15),
-                              ),
-                              child: ListTile(
-                                title: Text(
-                                  noteCtrl.allnotes[index].title ?? "",
-                                  style: TextStyle(color: Colors.white),
+                    ? GestureDetector(
+                        onTap: () {},
+                        child: ListView.builder(
+                          shrinkWrap: true,
+                          physics: NeverScrollableScrollPhysics(),
+                          itemCount: noteCtrl.allnotes.length,
+                          itemBuilder: (context, index) {
+                            return Padding(
+                              padding: EdgeInsets.only(bottom: 15),
+                              child: Container(
+                                padding: EdgeInsets.only(
+                                  left: 5,
+                                  right: 5,
+                                  top: 10,
                                 ),
-                                subtitle: Text(
-                                  noteCtrl.allnotes[index].description ?? "",
-                                  style: TextStyle(color: Colors.white),
+                                width: double.infinity,
+                                height: 120,
+                                decoration: BoxDecoration(
+                                  color: AppColors.darkGreyColor,
+                                  borderRadius: BorderRadius.circular(15),
+                                ),
+                                child: ListTile(
+                                  title: Text(
+                                    noteCtrl.allnotes[index].title ?? "",
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  subtitle: Text(
+                                    noteCtrl.allnotes[index].createdAt != null
+                                        ? DateFormat(
+                                            'dd MMM yyyy, hh:mm a',
+                                          ).format(
+                                            DateTime.fromMillisecondsSinceEpoch(
+                                              noteCtrl
+                                                  .allnotes[index]
+                                                  .createdAt!,
+                                            ),
+                                          )
+                                        : '',
+                                    style: TextStyle(color: Colors.white),
+                                  ),
                                 ),
                               ),
-                            ),
-                          );
-                        },
+                            );
+                          },
+                        ),
                       )
-                    : Center(child: Text("No Note Yets"));
+                    : Center(
+                        child: Text(
+                          "No Note Yets",
+                          style: TextStyle(
+                            fontSize: 20,
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      );
               }),
             ],
           ),

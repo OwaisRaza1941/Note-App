@@ -2,8 +2,9 @@ class NotesModel {
   int? sNo;
   String? title;
   String? description;
+  int? createdAt;
 
-  NotesModel({this.sNo, this.title, this.description});
+  NotesModel({this.sNo, this.title, this.description, this.createdAt});
 
   ///JSON convert TO ---->> NoteModel
   factory NotesModel.fromMap(Map<String, dynamic> map) {
@@ -11,6 +12,7 @@ class NotesModel {
       sNo: map['s_no'],
       title: map['title'],
       description: map['desc'],
+      createdAt: map['createdAt'],
     );
   }
 
@@ -24,6 +26,7 @@ class NotesModel {
 
     data['title'] = title;
     data['desc'] = description;
+    data['createdAt'] = createdAt;
 
     return data;
   }

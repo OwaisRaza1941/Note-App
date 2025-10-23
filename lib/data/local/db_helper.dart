@@ -14,6 +14,7 @@ class DBHelper {
   static final String column_note_sno = 's_no';
   static final String column_note_title = 'title';
   static final String column_note_description = 'desc';
+  static final String column_note_createdAt = 'createdAt';
 
   Database? myDB;
 
@@ -38,7 +39,7 @@ class DBHelper {
       onCreate: (db, version) {
         /// create all your tables here
         db.execute(
-          "create table $table_note ($column_note_sno integer primary key autoincrement , $column_note_title text, $column_note_description text)",
+          "create table $table_note ($column_note_sno integer primary key autoincrement , $column_note_title text, $column_note_description text, $column_note_createdAt INTEGER)",
         );
 
         ///
