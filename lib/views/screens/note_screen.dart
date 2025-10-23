@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 import 'package:notepad/constants/colors.dart';
 import 'package:notepad/controller/note_add_controller.dart';
 import 'package:notepad/views/screens/note_add_screen.dart';
-import 'package:notepad/views/widgets/dropdown_button.dart';
-import 'package:notepad/views/widgets/text_fields.dart';
+import 'package:notepad/views/widgets/bottom_sheets/custom_bottom_sheet.dart';
+import 'package:notepad/views/widgets/cards/note_cards.dart';
+import 'package:notepad/views/widgets/textfields/dropdown_button.dart';
+import 'package:notepad/views/widgets/textfields/text_fields.dart';
 
 class NoteScreen extends StatelessWidget {
   const NoteScreen({super.key});
@@ -21,7 +22,6 @@ class NoteScreen extends StatelessWidget {
           padding: EdgeInsets.only(top: 100, left: 15, right: 15),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               DropdownButtonClass(),
               SizedBox(height: 10),
@@ -34,71 +34,24 @@ class NoteScreen extends StatelessWidget {
                         physics: NeverScrollableScrollPhysics(),
                         itemCount: noteCtrl.allnotes.length,
                         itemBuilder: (context, index) {
-                          return GestureDetector(
-                            /// Updated Note
-                            onTap: () {
-                              Get.to(
-                                NoteAddScreen(
-                                  dateTime: DateTime.fromMillisecondsSinceEpoch(
-                                    noteCtrl.allnotes[index].createdAt!,
-                                  ), // ✅ old note date
-                                  note: noteCtrl.allnotes[index],
-                                  isEdite: true,
-                                ),
-                              );
+                          return NoteCard(
+                            note: noteCtrl.allnotes[index],
+                            onLongPress: () {
+                              showBottomOptions(index, context);
                             },
-
-                            /// delete Note Parmenantly
-                            onLongPress: () {},
-                            child: Padding(
-                              padding: EdgeInsets.only(bottom: 15),
-                              child: Container(
-                                padding: EdgeInsets.only(
-                                  left: 5,
-                                  right: 5,
-                                  top: 10,
-                                ),
-                                width: double.infinity,
-                                height: 120,
-                                decoration: BoxDecoration(
-                                  color: AppColors.darkGreyColor,
-                                  borderRadius: BorderRadius.circular(15),
-                                ),
-                                child: ListTile(
-                                  title: Text(
-                                    noteCtrl.allnotes[index].title ?? "",
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                  subtitle: Text(
-                                    noteCtrl.allnotes[index].createdAt != null
-                                        ? DateFormat(
-                                            'dd MMM yyyy, hh:mm a',
-                                          ).format(
-                                            DateTime.fromMillisecondsSinceEpoch(
-                                              noteCtrl
-                                                  .allnotes[index]
-                                                  .createdAt!,
-                                            ),
-                                          )
-                                        : '',
-                                    style: TextStyle(color: Colors.white),
-                                  ),
-                                ),
-                              ),
-                            ),
                           );
                         },
                       )
-                    : Center(
-                        child: Text(
-                          "No Note Yets",
-                          style: TextStyle(
-                            fontSize: 20,
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
+                    : SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.5,
+                        child: Center(
+                          child: Text(
+                            "No Note Yet",
+                            style: TextStyle(
+                              fontSize: 20,
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
                       );

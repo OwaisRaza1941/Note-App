@@ -55,7 +55,7 @@ class NoteAddScreen extends StatelessWidget {
                         Get.snackbar(
                           "Error",
                           "Title and Description required!",
-                          backgroundColor: Color.fromARGB(255, 75, 32, 3),
+                          backgroundColor: Color.fromARGB(255, 0, 0, 0),
                           colorText: Color.fromARGB(255, 255, 255, 255),
                         );
                         return;

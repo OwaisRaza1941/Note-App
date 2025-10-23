@@ -85,4 +85,16 @@ class DBHelper {
 
     return rowsEffected > 0;
   }
+
+  ////delete Note
+  Future<bool> deleteNote({required int s_no}) async {
+    final db = await getDB();
+
+    int rowsEffected = await db.delete(
+      table_note,
+      where: '$column_note_sno = $s_no',
+    );
+
+    return rowsEffected > 0;
+  }
 }

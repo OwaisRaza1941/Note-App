@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:notepad/constants/colors.dart';
-import 'package:notepad/views/widgets/text_fields.dart';
+import 'package:notepad/views/widgets/textfields/text_fields.dart';
 
 class TodoScreen extends StatelessWidget {
   const TodoScreen({super.key});
