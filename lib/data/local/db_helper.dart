@@ -71,4 +71,18 @@ class DBHelper {
 
     return mData;
   }
+
+  /// Updated Note
+  Future<bool> updateNote(NotesModel note) async {
+    final db = await getDB();
+
+    int rowsEffected = await db.update(
+      table_note,
+      note.toMap(),
+      where: '$column_note_sno = ?',
+      whereArgs: [note.sNo],
+    );
+
+    return rowsEffected > 0;
+  }
 }

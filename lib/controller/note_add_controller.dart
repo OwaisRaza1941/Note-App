@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:notepad/controller/loader_controller.dart';
 import 'package:notepad/data/local/db_helper.dart';
@@ -25,17 +24,6 @@ class NoteAddController extends GetxController {
 
   /// Save Note Logic
   Future<void> saveNote(String title, String description, DateTime time) async {
-    // Validation
-    if (title.isEmpty || description.isEmpty) {
-      Get.snackbar(
-        "Required",
-        "Title and Description must not be empty",
-        backgroundColor: Color.fromARGB(255, 75, 32, 3),
-        colorText: Color.fromARGB(255, 255, 255, 255),
-      );
-      return;
-    }
-
     loaderCtrl.showLoader();
 
     // Prepare Note data

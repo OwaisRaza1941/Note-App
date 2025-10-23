@@ -21,6 +21,7 @@ class NoteScreen extends StatelessWidget {
           padding: EdgeInsets.only(top: 100, left: 15, right: 15),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               DropdownButtonClass(),
               SizedBox(height: 10),
@@ -28,14 +29,28 @@ class NoteScreen extends StatelessWidget {
 
               Obx(() {
                 return noteCtrl.allnotes.isNotEmpty
-                    ? GestureDetector(
-                        onTap: () {},
-                        child: ListView.builder(
-                          shrinkWrap: true,
-                          physics: NeverScrollableScrollPhysics(),
-                          itemCount: noteCtrl.allnotes.length,
-                          itemBuilder: (context, index) {
-                            return Padding(
+                    ? ListView.builder(
+                        shrinkWrap: true,
+                        physics: NeverScrollableScrollPhysics(),
+                        itemCount: noteCtrl.allnotes.length,
+                        itemBuilder: (context, index) {
+                          return GestureDetector(
+                            /// Updated Note
+                            onTap: () {
+                              Get.to(
+                                NoteAddScreen(
+                                  dateTime: DateTime.fromMillisecondsSinceEpoch(
+                                    noteCtrl.allnotes[index].createdAt!,
+                                  ), // ✅ old note date
+                                  note: noteCtrl.allnotes[index],
+                                  isEdite: true,
+                                ),
+                              );
+                            },
+
+                            /// delete Note Parmenantly
+                            onLongPress: () {},
+                            child: Padding(
                               padding: EdgeInsets.only(bottom: 15),
                               child: Container(
                                 padding: EdgeInsets.only(
@@ -73,9 +88,9 @@ class NoteScreen extends StatelessWidget {
                                   ),
                                 ),
                               ),
-                            );
-                          },
-                        ),
+                            ),
+                          );
+                        },
                       )
                     : Center(
                         child: Text(
@@ -96,7 +111,7 @@ class NoteScreen extends StatelessWidget {
         backgroundColor: AppColors.darkGreyColor,
         shape: CircleBorder(),
         onPressed: () {
-          Get.to(NoteAddScreen(dateTime: DateTime.now()));
+          Get.to(NoteAddScreen(dateTime: DateTime.now(), isEdite: false));
         },
         child: Icon(Icons.add, color: Colors.blue),
       ),

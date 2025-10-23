@@ -6,7 +6,8 @@ import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:notepad/controller/loader_controller.dart';
 
 class CustomLoader extends StatelessWidget {
-  CustomLoader({super.key});
+  final bool isEdite;
+  CustomLoader({super.key, required this.isEdite});
 
   final loaderController = Get.put(LoaderController());
 
@@ -22,39 +23,25 @@ class CustomLoader extends StatelessWidget {
                   child: Container(color: Colors.black.withOpacity(0.4)),
                 ),
 
-                // Loader Box
+                // Loader
                 Center(
-                  child: Container(
-                    padding: EdgeInsets.all(25),
-                    decoration: BoxDecoration(
-                      color: Colors.white.withOpacity(0.9),
-                      borderRadius: BorderRadius.circular(16),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.purple.withOpacity(0.3),
-                          blurRadius: 15,
-                          spreadRadius: 2,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      LoadingAnimationWidget.staggeredDotsWave(
+                        color: Colors.white,
+                        size: 50,
+                      ),
+                      SizedBox(height: 12),
+                      Text(
+                        isEdite ? 'Updated Note...' : 'Saving Note....',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
                         ),
-                      ],
-                    ),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        LoadingAnimationWidget.staggeredDotsWave(
-                          color: Colors.purple,
-                          size: 50,
-                        ),
-                        SizedBox(height: 12),
-                        Text(
-                          "Saving note...",
-                          style: TextStyle(
-                            color: Colors.purple,
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ),
               ],
