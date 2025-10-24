@@ -1,10 +1,7 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:notepad/constants/colors.dart';
-import 'package:notepad/controller/note_add_controller.dart';
-
-final NoteAddController controller = Get.put(NoteAddController());
+import 'package:notepad/views/widgets/dialogs/delete_note_dialog.dart';
 
 showBottomOptions(int index, BuildContext context) {
   showModalBottomSheet(
@@ -33,15 +30,8 @@ showBottomOptions(int index, BuildContext context) {
                         color: AppColors.iconColor,
                         size: 30,
                       ),
-                      onPressed: () async {
-                        bool check = await controller.dbRF!.deleteNote(
-                          s_no: controller.allnotes[index].sNo!,
-                        );
-
-                        if (check) {
-                          controller.getNotes();
-                          Get.back();
-                        }
+                      onPressed: () {
+                        deleteNoteDailog(index);
                       },
                     ),
                     Text("Delete", style: TextStyle(color: Colors.white)),

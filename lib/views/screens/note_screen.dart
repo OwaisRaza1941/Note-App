@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:notepad/constants/colors.dart';
 import 'package:notepad/controller/note_add_controller.dart';
+import 'package:notepad/controller/searching_controller.dart';
 import 'package:notepad/views/screens/note_add_screen.dart';
 import 'package:notepad/views/widgets/bottom_sheets/custom_bottom_sheet.dart';
 import 'package:notepad/views/widgets/cards/note_cards.dart';
@@ -14,6 +15,7 @@ class NoteScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final NoteAddController noteCtrl = Get.put(NoteAddController());
+    final SearchingController searchCtrl = Get.put(SearchingController());
 
     return Scaffold(
       backgroundColor: Colors.black,
@@ -28,14 +30,18 @@ class NoteScreen extends StatelessWidget {
               TextFields(),
 
               Obx(() {
-                return noteCtrl.allnotes.isNotEmpty
+                var notesToShow = searchCtrl.searchText.isEmpty
+                    ? noteCtrl.allnotes
+                    : searchCtrl.filteredNotes;
+
+                return notesToShow.isNotEmpty
                     ? ListView.builder(
                         shrinkWrap: true,
                         physics: NeverScrollableScrollPhysics(),
-                        itemCount: noteCtrl.allnotes.length,
+                        itemCount: notesToShow.length,
                         itemBuilder: (context, index) {
                           return NoteCard(
-                            note: noteCtrl.allnotes[index],
+                            note: notesToShow[index],
                             onLongPress: () {
                               showBottomOptions(index, context);
                             },
@@ -43,15 +49,11 @@ class NoteScreen extends StatelessWidget {
                         },
                       )
                     : SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.5,
+                        height: MediaQuery.of(context).size.height * 0.6,
                         child: Center(
                           child: Text(
-                            "No Note Yet",
-                            style: TextStyle(
-                              fontSize: 20,
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                            ),
+                            "No Notes Found",
+                            style: TextStyle(color: Colors.white, fontSize: 18),
                           ),
                         ),
                       );
