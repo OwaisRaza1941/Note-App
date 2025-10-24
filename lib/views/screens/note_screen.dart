@@ -43,7 +43,11 @@ class NoteScreen extends StatelessWidget {
                           return NoteCard(
                             note: notesToShow[index],
                             onLongPress: () {
-                              showBottomOptions(index, context);
+                              showBottomOptions(
+                                context: context,
+                                index: index,
+                                type: 'note',
+                              );
                             },
                           );
                         },

@@ -2,8 +2,13 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:notepad/constants/colors.dart';
 import 'package:notepad/views/widgets/dialogs/delete_note_dialog.dart';
+import 'package:notepad/views/widgets/dialogs/delete_todo_dailoge.dart';
 
-showBottomOptions(int index, BuildContext context) {
+showBottomOptions({
+  required int index,
+  required BuildContext context,
+  required String type,
+}) {
   showModalBottomSheet(
     context: context,
     backgroundColor: Colors.transparent,
@@ -20,7 +25,7 @@ showBottomOptions(int index, BuildContext context) {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                // Delete button
+                // ✅ DELETE BUTTON
                 Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
@@ -31,14 +36,18 @@ showBottomOptions(int index, BuildContext context) {
                         size: 30,
                       ),
                       onPressed: () {
-                        deleteNoteDailog(index);
+                        if (type == "note") {
+                          deleteNoteDailog(index);
+                        } else if (type == "todo") {
+                          deleteTodoDialog(index);
+                        }
                       },
                     ),
                     Text("Delete", style: TextStyle(color: Colors.white)),
                   ],
                 ),
 
-                // Move button
+                // MOVE
                 Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
@@ -54,7 +63,7 @@ showBottomOptions(int index, BuildContext context) {
                   ],
                 ),
 
-                // Edit button
+                // EDIT
                 Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
