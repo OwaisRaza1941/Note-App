@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:notepad/constants/colors.dart';
 import 'package:notepad/controller/note_add_controller.dart';
-import 'package:notepad/controller/searching_controller.dart';
+import 'package:notepad/controller/searching_notes_controller.dart';
 import 'package:notepad/views/screens/note_add_screen.dart';
 import 'package:notepad/views/widgets/bottom_sheets/custom_bottom_sheet.dart';
 import 'package:notepad/views/widgets/cards/note_cards.dart';
 import 'package:notepad/views/widgets/textfields/dropdown_button.dart';
-import 'package:notepad/views/widgets/textfields/text_fields.dart';
+import 'package:notepad/views/widgets/textfields/text_fields_note.dart';
 
 class NoteScreen extends StatelessWidget {
   const NoteScreen({super.key});
@@ -30,7 +30,7 @@ class NoteScreen extends StatelessWidget {
               TextFields(),
 
               Obx(() {
-                var notesToShow = searchCtrl.searchText.isEmpty
+                var notesToShow = searchCtrl.searchText.value.isEmpty
                     ? noteCtrl.allnotes
                     : searchCtrl.filteredNotes;
 

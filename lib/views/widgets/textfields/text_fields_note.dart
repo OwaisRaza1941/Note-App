@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:notepad/constants/colors.dart';
-import 'package:notepad/controller/searching_controller.dart';
+import 'package:notepad/controller/searching_notes_controller.dart';
 
 class TextFields extends StatelessWidget {
   const TextFields({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final SearchingController controller = Get.find();
+    final SearchingController searchNoteCtrl = Get.find();
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 12),
       decoration: BoxDecoration(
@@ -17,7 +17,7 @@ class TextFields extends StatelessWidget {
       ),
       child: TextField(
         onChanged: (value) {
-          controller.search(value);
+          searchNoteCtrl.search(value);
         },
         style: TextStyle(color: Colors.white),
         cursorColor: Colors.white,

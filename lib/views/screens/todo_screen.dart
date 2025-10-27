@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:notepad/constants/colors.dart';
 import 'package:get/get.dart';
+import 'package:notepad/controller/searching_todos_controller.dart';
 import 'package:notepad/controller/todo_add_controller.dart';
 import 'package:notepad/views/screens/todo_add_screen.dart';
 import 'package:notepad/views/widgets/bottom_sheets/custom_bottom_sheet.dart';
 import 'package:notepad/views/widgets/cards/todo_cards.dart';
-import 'package:notepad/views/widgets/textfields/text_fields.dart';
+import 'package:notepad/views/widgets/textfields/text_fields_todo.dart';
 
 class TodoScreen extends StatelessWidget {
   const TodoScreen({super.key});
@@ -13,6 +14,7 @@ class TodoScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     TodoAddController todoCtrl = Get.put(TodoAddController());
+    SearchingTodosController searchCtrl = Get.put(SearchingTodosController());
 
     return Scaffold(
       backgroundColor: Colors.black,
@@ -37,7 +39,7 @@ class TodoScreen extends StatelessWidget {
                 ],
               ),
               SizedBox(height: 40),
-              TextFields(),
+              TextFieldsClass(),
               SizedBox(height: 20),
 
               Text(
@@ -46,15 +48,19 @@ class TodoScreen extends StatelessWidget {
               ),
 
               Obx(() {
-                return todoCtrl.allTodos.isNotEmpty
+                var showTodos = searchCtrl.searchText.value.isEmpty
+                    ? todoCtrl.allTodos
+                    : searchCtrl.filteredTodos;
+
+                return showTodos.isNotEmpty
                     ? ListView.builder(
                         shrinkWrap: true,
                         physics: NeverScrollableScrollPhysics(),
-                        itemCount: todoCtrl.allTodos.length,
+                        itemCount: showTodos.length,
                         itemBuilder: (context, index) {
                           return TodoCards(
                             index: index,
-                            todo: todoCtrl.allTodos[index],
+                            todo: showTodos[index],
                             onLongPress: () {
                               showBottomOptions(
                                 context: context,
@@ -69,7 +75,7 @@ class TodoScreen extends StatelessWidget {
                         height: MediaQuery.of(context).size.height * 0.6,
                         child: Center(
                           child: Text(
-                            "No Todo Yets",
+                            "No Todo Yet",
                             style: TextStyle(
                               fontSize: 20,
                               color: Colors.white,
