@@ -1,34 +1,32 @@
 import 'package:get/get.dart';
-import 'package:notepad/data/local/db_helper.dart';
+import 'package:notepad/controller/todo_add_controller.dart';
 import 'package:notepad/models/todo_model.dart';
 
 class SearchingTodosController extends GetxController {
-  var allTodosData = <TodoModel>[].obs;
   var filteredTodos = <TodoModel>[].obs;
   var searchText = ''.obs;
 
-  Future<void> loadFromTodos() async {
-    List<Map<String, dynamic>> todos = await DBHelper.getInstance.getAllTodos();
-    allTodosData.clear();
-    allTodosData.addAll(todos.map((e) => TodoModel.fromMap(e)).toList());
+  late TodoAddController todoCtrl;
+
+  @override
+  void onInit() {
+    super.onInit();
+    todoCtrl = Get.find<TodoAddController>();
   }
 
   void search(String query) {
     searchText.value = query;
 
     if (query.isNotEmpty) {
-      filteredTodos.value = allTodosData
+      filteredTodos.value = todoCtrl.allTodos
           .where(
             (todos) =>
-                todos.task != null && todos.task!.toLowerCase().contains(query),
+                todos.task != null &&
+                todos.task!.toLowerCase().contains(query.toLowerCase()),
           )
           .toList();
+    } else {
+      filteredTodos.value = todoCtrl.allTodos;
     }
-  }
-
-  @override
-  Future<void> onInit() async {
-    super.onInit();
-    await loadFromTodos();
   }
 }

@@ -18,7 +18,6 @@ class NoteScreen extends StatelessWidget {
     final SearchingController searchCtrl = Get.put(SearchingController());
 
     return Scaffold(
-      backgroundColor: Colors.black,
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.only(top: 100, left: 15, right: 15),

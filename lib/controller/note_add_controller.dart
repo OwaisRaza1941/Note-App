@@ -39,7 +39,7 @@ class NoteAddController extends GetxController {
     // Refresh List + Back if success
     if (check) {
       await getNotes();
-      await Future.delayed(Duration(seconds: 5));
+      await Future.delayed(Duration(seconds: 3));
       loaderCtrl.hideLoader();
       Get.back();
     } else {

@@ -53,6 +53,12 @@ class TodoCards extends StatelessWidget {
                   : "",
               style: TextStyle(color: Colors.white70),
             ),
+            trailing: Radio(
+              activeColor: Colors.white,
+              value: 'selected',
+              groupValue: 'selected',
+              onChanged: (value) {},
+            ),
           ),
         ),
       ),

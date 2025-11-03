@@ -17,7 +17,6 @@ class TodoScreen extends StatelessWidget {
     SearchingTodosController searchCtrl = Get.put(SearchingTodosController());
 
     return Scaffold(
-      backgroundColor: Colors.black,
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.only(top: 50, left: 20, right: 20),
